@@ -1,0 +1,44 @@
+#!/usr/bin/env perl
+use App::wu;
+
+# PODNAME: wu.pl
+
+die 'Weather Underground API key not found in environment variables. Add an environment variable WU_API_KEY and re-run this app' unless $ENV{WU_API_KEY};
+
+my $home_location = $ENV{WU_HOME_LOCATION} || 'New York City, NY';
+
+#capture location
+print "Enter city or zip / postal code ($home_location): ";
+my $location = <>;
+chomp $location;
+
+my $wu = App::wu->new( ($location || $home_location), $ENV{WU_API_KEY});
+
+$wu->print_hourly;
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+wu.pl
+
+=head1 VERSION
+
+version 0.01
+
+=head1 AUTHOR
+
+David Farrell <sillymoos@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2014 by David Farrell.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
